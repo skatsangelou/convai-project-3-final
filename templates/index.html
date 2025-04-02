@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Recorder</title>
+</head>
+<body>
+    <h2>Record and Upload Audio</h2>
+    <button id="record">Record</button>
+    <button id="stop">Stop</button>
+    <span id="timer">00:00</span>
+    <audio id="audio"></audio>
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="audio_data" id="audioData">
+    </form>
+    <script src="script.js"></script>
+    <hr>
+    <h2>Recorded Files</h2>
+    <ul>
+        {% for file in files %}
+        <li> 
+            <audio controls>
+                <source src="{{ url_for('uploaded_file', folder='uploads', filename=file) }}">
+            </audio><br>
+            {{ file }}
+            <a href="{{ url_for('uploaded_file', folder='uploads', filename=file) }}.txt">View Transcription & Sentiment</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
